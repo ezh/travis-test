@@ -3,8 +3,8 @@ language: java
 
 env:
   global:
-    - COMMIT=${TRAVIS_COMMIT::8}
-    - REPO=ezh1k/test
+    - "COMMIT=${TRAVIS_COMMIT::8}"
+    - "REPO=ezh1k/test"
     - "TAG=$(if [ \"$TRAVIS_BRANCH\" == \"master\" ]; then echo \"latest\"; else echo $TRAVIS_BRANCH ; fi)"
 
 services:
