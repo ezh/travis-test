@@ -3,13 +3,14 @@ language: java
 
 env:
   - COMMIT=${TRAVIS_COMMIT::8}
+  - TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - REPO=ezh1k/test
 
 services:
   - docker
 
 before_script:
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - openssl aes-256-cbc -K $encrypted_15c47f5577f9_key -iv $encrypted_15c47f5577f9_iv -in .dockerhub.enc -out .dockerhub -d
+  - openssl aes-256-cbc -K "$encrypted_15c47f5577f9_key" -iv "$encrypted_15c47f5577f9_iv" -in .dockerhub.enc -out .dockerhub -d
   - sh .dockerhub
   - echo REPO:$REPO COMMIT:$COMMIT TAG:$TAG BUILD_NUMBER:$TRAVIS_BUILD_NUMBER
 
