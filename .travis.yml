@@ -3,9 +3,9 @@ language: java
 
 env:
   global:
-    - COMMIT=${TRAVIS_COMMIT::8}
-    - TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-    - REPO=ezh1k/test
+    - "COMMIT=${TRAVIS_COMMIT::8}"
+    - "TAG=`if [ \"$TRAVIS_BRANCH\" == \"master\" ]; then echo \"latest\"; else echo $TRAVIS_BRANCH ; fi`"
+    - "REPO=ezh1k/test"
 
 services:
   - docker
