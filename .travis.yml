@@ -3,9 +3,9 @@ language: java
 
 env:
   global:
-    - "COMMIT=${TRAVIS_COMMIT::8}"
-    - "TAG=$(if [ \"$TRAVIS_BRANCH\" == \"master\" ]; then echo \"latest\"; else echo $TRAVIS_BRANCH ; fi)"
-    - "REPO=ezh1k/test"
+    - COMMIT=${TRAVIS_COMMIT::8}
+    - TAG=$(if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi)
+    - REPO=ezh1k/test
 
 services:
   - docker
@@ -16,6 +16,11 @@ before_script:
   - echo REPO:$REPO COMMIT:$COMMIT TAG:$TAG BUILD_NUMBER:$TRAVIS_BUILD_NUMBER
 
 script:
+  - docker images
   - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
 
-
+deploy:
+  - docker images
+  - docker push $REPO
